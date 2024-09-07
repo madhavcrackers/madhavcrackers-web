@@ -3,4 +3,5 @@
 @tailwind utilities;
 :root{
     font-family: 'Segoe UI', sans-serif;
+    scroll-behavior: smooth;
 }

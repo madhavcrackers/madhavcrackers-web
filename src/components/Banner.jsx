@@ -1,9 +1,10 @@
 import React from "react";
 import {Carousel} from 'antd'
-import Banner1Desk from '../assets/banner1-desk.png'
-import Banner2Desk from '../assets/banner2-desk.png'
-import Banner1Mob from '../assets/banner1-mob.png'
-import Banner2Mob from '../assets/banner2-mob.png'
+
+const Banner1Desk="https://ik.imagekit.io/madhav/Banner/banner1-desk.png"
+const Banner2Desk="https://ik.imagekit.io/madhav/Banner/banner2-desk.png"
+const Banner1Mob="https://ik.imagekit.io/madhav/Banner/banner1-mob.png"
+const Banner2Mob="https://ik.imagekit.io/madhav/Banner/banner2-mob.png"
 
 function Banner(){
     const bannerDesk=[
