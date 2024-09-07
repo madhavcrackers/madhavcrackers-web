@@ -1,7 +1,8 @@
 import React from "react";
 import { IoMdCall,IoMdMail  } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
-import PriceList from '../assets/PriceList.pdf'
+
+const PriceList="https://ik.imagekit.io/madhav/PriceList.pdf"
 
 
 function NavBar1(){
