@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { IoMenu } from "react-icons/io5";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 function NavBar3() {
+    const navigate=useNavigate()
     const [isSmallerDevice, setIsSmallerDevice] = useState(false);
     const[open,setOpen]=useState(false)
     useEffect(() => {
@@ -19,33 +21,34 @@ function NavBar3() {
         },
         {
             title: "Products",
-            path: '/'
+            path: '/quick-purchase'
+        },{
+            title:"Payment Info",
+            path:'/payment-info'
         },
         {
             title: "Gallery",
-            path: '/'
+            path: '/gallery'
         },
         {
             title: "About Us",
-            path: '/'
-        },
-        {
-            title: "FAQ'S",
-            path: '/'
+            path: '/about-us'
         },
         {
             title: "Contact Us",
-            path: '/'
+            path: '/contact-us'
         },
     ]
     return (
         <>
-            <div className="w-full bg-[#4535C1] py-3 sm:px-12 px-4 flex sm:justify-between justify-end items-center">
+            <div className="w-full h-fit bg-[#4535C1] py-3 sm:px-12 px-4 flex sm:justify-between justify-end items-center">
                 <div className="sm:flex gap-8 px-5 hidden">
                     {
                         menuItems.map((menu, index) => {
                             return (
-                                <span className="cursor-pointer text-[#fff] hover:text-[#facc15] hover:font-medium duration-100" key={index}>{menu.title}</span>
+                                <span className="cursor-pointer h-fit text-[#fff] hover:text-[#facc15] hover:font-medium duration-100" key={index} onClick={()=>{
+                                    navigate(menu.path)
+                                }}>{menu.title}</span>
                             )
                         })
                     }
@@ -61,7 +64,10 @@ function NavBar3() {
                 {
                     menuItems.map((menu, index) => {
                         return (
-                            <span className="cursor-pointer select-none text-xl text-[#fff] hover:text-[#facc15] hover:font-medium hover:ps-4 hover:border-l-4" key={index} onClick={()=>{setOpen(false)}}>{menu.title}</span>
+                            <span className="cursor-pointer select-none text-xl text-[#fff] hover:text-[#facc15] hover:font-medium hover:ps-4 hover:border-l-4" key={index} onClick={()=>{
+                                setOpen(false)
+                                navigate(menu.path)
+                            }}>{menu.title}</span>
                         )
                     })
                 }
