@@ -21,7 +21,7 @@ function Footer() {
                             <p className="text-[#fff] text-sm leading-6">No: 4/273-11/7, Virudhunagar to Sivakasi Main Road,<br />
                                 Amathur, Sivakasi.<br />
                                 Tamilnadu-626005,India.<br />
-                                <a className="text-[#facc15] font-medium" href="/">View on map</a>                            </p>
+                                <a className="text-[#facc15] font-medium" target="_blank" referrerPolicy={"noreferrer"} href="https://maps.app.goo.gl/SBtJM13sdW3yeU6W6">View on map</a>                            </p>
                         </div>
                         <div className="flex items-center gap-2">
                             <IoMdCall className="text-[#facc15] text-lg" />
@@ -37,11 +37,11 @@ function Footer() {
                         <p className="text-lg text-[#facc15] font-medium border-b-[3px] w-fit">Quick Links</p>
                         <div className="flex flex-col gap-1">
                             <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/"}>Home</Link>
-                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/"}>Products</Link>
-                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/"}>Gallery</Link>
-                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/"}>About Us</Link>
-                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/"}>FAQ'S</Link>
-                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/"}>Contact Us</Link>
+                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/quick-purchase"}>Products</Link>
+                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/payment-info"}>Payment Info</Link>
+                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/gallery"}>Gallery</Link>
+                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/about-us"}>About Us</Link>
+                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/contact-us"}>Contact Us</Link>
                         </div>
                     </div>
                     <div className="flex flex-col gap-3">
