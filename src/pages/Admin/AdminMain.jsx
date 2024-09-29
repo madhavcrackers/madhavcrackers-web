@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Layout, Menu, theme ,message} from 'antd';
+import { Layout, Menu, theme, message } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import Loader from '../../components/Loader'
+import Dashboard from './Dashboard';
 import ManageCategory from './ManageCategory';
 import AddProduct from './AddProduct';
 import ManageProduct from './ManageProduct';
 import ManageGallery from './ManageGallery';
 import AdminSettings from './AdminSettings';
+import PendingOrders from './PendingOrders';
+import DispatchedOrder from './DispatchedOrder'
 import { logoutAdmin } from '../../actions/AuthAction'
-import {getCategories,getProducts, getSettings} from '../../actions/AdminAction'
-import {getGallery} from '../../actions/UserAction'
+import { getCategories, getProducts, getSettings, getOrders } from '../../actions/AdminAction'
+import { getGallery } from '../../actions/UserAction'
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdCategory } from "react-icons/md";
 import { GiFireworkRocket } from "react-icons/gi";
@@ -29,16 +32,17 @@ function AdminMain() {
     const isAdmin = useSelector((state) => state.auth.isAdmin)
     const [open, setOpen] = useState(1)
     const loading = useSelector((state) => state.loader.loading);
-    const[messageApi,ContextHolder]=message.useMessage()
+    const [messageApi, ContextHolder] = message.useMessage()
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
-    useEffect(()=>{
+    useEffect(() => {
         getCategories(dispatch)
         getProducts(dispatch)
         getSettings(dispatch)
         getGallery(dispatch)
-    },[])
+        getOrders(dispatch)
+    }, [])
     useEffect(() => {
         if (isAdmin == false)
             navigate('/')
@@ -55,48 +59,48 @@ function AdminMain() {
             icon: <MdCategory />
         },
         {
-            key:3,
-            label:"Products",
-            icon:<GiFireworkRocket/>,
-            children:[
+            key: 3,
+            label: "Products",
+            icon: <GiFireworkRocket />,
+            children: [
                 {
-                    key:4,
-                    label:"Add Product",
-                    icon:<MdAddToPhotos/>
+                    key: 4,
+                    label: "Add Product",
+                    icon: <MdAddToPhotos />
                 },
                 {
-                    key:5,
-                    label:"Manage Product",
-                    icon:<IoHandLeftSharp/>
+                    key: 5,
+                    label: "Manage Product",
+                    icon: <IoHandLeftSharp />
                 }
             ]
         },
         {
-            key:8,
-            label:"Orders",
-            icon:<RiShoppingBag4Line/>,
-            children:[
+            key: 8,
+            label: "Orders",
+            icon: <RiShoppingBag4Line />,
+            children: [
                 {
-                    key:9,
-                    label:"Pending Orders",
-                    icon:<TbProgress/>
+                    key: 9,
+                    label: "Pending Orders",
+                    icon: <TbProgress />
                 },
                 {
-                    key:10,
-                    label:"Dispatched Orders",
-                    icon:<TbTruckDelivery/>
+                    key: 10,
+                    label: "Dispatched Orders",
+                    icon: <TbTruckDelivery />
                 }
             ]
         },
         {
-            key:6,
-            label:"Manage Gallery",
-            icon:<FiImage/>
+            key: 6,
+            label: "Manage Gallery",
+            icon: <FiImage />
         },
         {
-            key:7,
-            label:"Settings",
-            icon:<IoSettingsOutline/>
+            key: 7,
+            label: "Settings",
+            icon: <IoSettingsOutline />
         }
     ]
     return (
@@ -109,7 +113,7 @@ function AdminMain() {
                     <Layout
                         style={{
                             minHeight: '100vh',
-                            backgroundColor:"white"
+                            backgroundColor: "white"
                         }}
                     >
                         <Sider
@@ -147,22 +151,30 @@ function AdminMain() {
                                     }}
                                 >
                                     {
-                                        open == 2 ?
-                                            <ManageCategory />
+                                        open == 1 ?
+                                            <Dashboard />
                                             :
-                                            open==4?
-                                            <AddProduct/>
-                                            :
-                                            open==5?
-                                            <ManageProduct/>
-                                            :
-                                            open==6?
-                                            <ManageGallery/>
-                                            :
-                                            open==7?
-                                            <AdminSettings/>
-                                            :
-                                            <h1>Hello</h1>
+                                            open == 2 ?
+                                                <ManageCategory />
+                                                :
+                                                open == 4 ?
+                                                    <AddProduct />
+                                                    :
+                                                    open == 5 ?
+                                                        <ManageProduct />
+                                                        :
+                                                        open == 6 ?
+                                                            <ManageGallery />
+                                                            :
+                                                            open == 7 ?
+                                                                <AdminSettings /> :
+                                                                open == 9 ?
+                                                                    <PendingOrders />
+                                                                    :
+                                                                    open == 10 ?
+                                                                        <DispatchedOrder />
+                                                                        :
+                                                                        <h1>Not found</h1>
                                     }
                                 </div>
                             </Content>

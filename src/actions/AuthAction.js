@@ -5,6 +5,7 @@ import { message } from 'antd'
 import { setAdminAuthSuccess ,setAdminAuthFail} from '../slices/AuthSlice'
 import {setGalleryFailure} from '../slices/OtherSlice'
 import {setResetInventory} from '../slices/InventorySlice'
+import {setOrdersFail,setOrdersSuccess} from '../slices/OrdersSlices'
 
 export const loginAdmin = async (dispatch, email, navigate) => {
     const provider = new GoogleAuthProvider()
@@ -18,6 +19,7 @@ export const loginAdmin = async (dispatch, email, navigate) => {
         if (res.docs.length != 0) {
             message.success("Login Successfully")
             dispatch(setAdminAuthSuccess())
+            dispatch(setOrdersSuccess([]))
             navigate('/admin')
         }
         else {
@@ -40,6 +42,7 @@ export const logoutAdmin = async (dispatch, navigate) => {
         dispatch(setAdminAuthFail())
         dispatch(setResetInventory())
         dispatch(setGalleryFailure())
+        dispatch(setOrdersFail())
         navigate('/')
     }).catch((error) => {
         message.error("Something went wrong")

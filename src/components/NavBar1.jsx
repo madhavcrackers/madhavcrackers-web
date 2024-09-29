@@ -21,7 +21,6 @@ function NavBar1(){
                 <span className="flex items-center gap-2">
                     <IoMdCall className="text-[#facc15] text-lg"/>
                     <a className="text-white text-sm" href="tel:9363935429">9363935429</a>
-                    <a className="text-white text-sm" href="tel:9343565251">9343565251</a>
                 </span>
                 <span className="flex items-center gap-2">
                     <IoMdMail className="text-[#facc15] text-lg"/>

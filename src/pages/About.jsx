@@ -7,10 +7,15 @@ import AboutUs from '../components/AboutUs';
 import WhyChooseUs from '../components/WhyChooseUs';
 import AboutFooter from '../components/AboutFooter';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 function About(){
     const [messageApi,ContextHolder]=message.useMessage()
     return(
         <>
+            <Helmet>
+                <title>About Us | Madhav Crackers</title>
+                <meta name="description" content=" Madhav Crackers Sale! 2024 DIWALI SALE! 90% Discount  Pricelist"/>
+            </Helmet>
             {ContextHolder}
             <NavBar1/>
             <NavBar2/>

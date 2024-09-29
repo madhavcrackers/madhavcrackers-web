@@ -1,11 +1,13 @@
 import { db } from '../db'
-import { collection, getDocs, query, addDoc } from 'firebase/firestore'
+import { collection, getDocs, query, addDoc, or, where } from 'firebase/firestore'
 import { message } from 'antd'
 import { setLoadingFail, setLoadingSuccess } from '../slices/LoadingSlice'
 import { setProducts, setSettings } from '../slices/ProductSlice'
-import { setCart,setCustomerInfo ,setOrderId,resetOrder} from '../slices/OrderSlice'
-import {setGallerySuccess} from '../slices/OtherSlice'
+import { setCart, setCustomerInfo, setOrderId, resetOrder } from '../slices/OrderSlice'
+import { setGallerySuccess } from '../slices/OtherSlice'
+import { setOrdersSuccess } from '../slices/OrdersSlices'
 import store from '../store';
+import _ from 'underscore'
 
 export const getProducts = async (dispatch) => {
     dispatch(setLoadingSuccess())
@@ -57,10 +59,10 @@ export const getSettings = async (dispatch) => {
 export const addToCart = async (dispatch, product) => {
     let packageCharge = 70
     let existingCarts = store.getState().order.cart
-    let existingCrackers=[...existingCarts.crackers];
-    let index=existingCrackers.findIndex((cracker)=>cracker.id==product.id);
-    if(index!=-1){
-        existingCrackers.splice(index,1,product)
+    let existingCrackers = [...existingCarts.crackers];
+    let index = existingCrackers.findIndex((cracker) => cracker.id == product.id);
+    if (index != -1) {
+        existingCrackers.splice(index, 1, product)
     }
     else
         existingCrackers.push(product)
@@ -74,7 +76,7 @@ export const addToCart = async (dispatch, product) => {
     dispatch(setCart(existingCarts))
 }
 
-export const handleCart=async(dispatch,crackers)=>{
+export const handleCart = async (dispatch, crackers) => {
     let packageCharge = 70
     let subTotal = findSubTotal(crackers)
     let existingCarts = {
@@ -86,39 +88,64 @@ export const handleCart=async(dispatch,crackers)=>{
     dispatch(setCart(existingCarts))
 }
 
-export const updateCustomerInfoAndOrderId=async(dispatch,customerInfo,orderId)=>{
-    let result=false
+export const updateCustomerInfoAndOrderId = async (dispatch, customerInfo, orderId) => {
+    let result = false
     dispatch(setCustomerInfo(customerInfo))
     dispatch(setOrderId(orderId))
-    let order={...store.getState().order,orderedAt:Date.now()};
+    let order = { ...store.getState().order, orderedAt: Date.now() };
     dispatch(setLoadingSuccess())
-    try{
-        const docRef=await addDoc(collection(db,"orders"),order)
-        sessionStorage.setItem("madhav_order_details",JSON.stringify(order))
+    try {
+        const docRef = await addDoc(collection(db, "orders"), order)
+        sessionStorage.setItem("madhav_order_details", JSON.stringify(order))
         dispatch(setLoadingFail())
         dispatch(resetOrder())
         localStorage.removeItem("madhav_cart")
-        result=true
-    }catch(err){
+        result = true
+    } catch (err) {
         console.log(err)
         dispatch(setLoadingFail())
-        result=false
+        result = false
     }
     return result;
 }
 
-export const getGallery=async(dispatch)=>{
+export const getGallery = async (dispatch) => {
     dispatch(setLoadingSuccess())
     try {
         const q = query(collection(db, "gallery"))
         const result = await getDocs(q)
         let images = []
         if (result.docs.length > 0) {
-            images=result.docs.map((image)=>{
-                return {...image.data(),id:image.id}
+            images = result.docs.map((image) => {
+                return { ...image.data(), id: image.id }
             })
         }
         dispatch(setGallerySuccess(images))
+        dispatch(setLoadingFail())
+    }
+    catch (err) {
+        console.log(err)
+        dispatch(setLoadingFail())
+    }
+}
+
+export const trackOrders = async(dispatch, orderID, mobileNumber) => {
+    dispatch(setLoadingSuccess())
+    try {
+        const q = query(collection(db, "orders"),or(where('orderID',"==",orderID),where('customerInfo.mobileNumber','==',mobileNumber)))
+        const result = await getDocs(q)
+        let orders = []
+        if (result.docs.length > 0) {
+            result.docs.map((order)=>{
+                orders.push(order.data())
+            })
+        }
+        orders=_.sortBy(orders,'orderedAt').reverse()
+        if(orders.length==0)
+            message.info("No orders found")
+        else
+            message.info("Orders fetched 🔥")
+        dispatch(setOrdersSuccess(orders))
         dispatch(setLoadingFail())
     }
     catch (err) {

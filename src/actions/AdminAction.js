@@ -4,7 +4,9 @@ import { message } from 'antd'
 import {setLoadingFail,setLoadingSuccess} from '../slices/LoadingSlice'
 import {setCategory,setProduct,setSettings} from '../slices/InventorySlice';
 import { setGallerySuccess } from '../slices/OtherSlice';
+import {setOrdersSuccess} from '../slices/OrdersSlices'
 import store from '../store';
+import _ from 'underscore'
 
 export const addCategory=async(dispatch,category)=>{
     dispatch(setLoadingSuccess())
@@ -177,6 +179,47 @@ export const deleteGallery=async(dispatch,image)=>{
         message.success("Gallery updated 🔥")
         dispatch(setGallerySuccess(images))
         dispatch(setLoadingFail())
+    }catch(err){
+        console.log(err)
+        dispatch(setLoadingFail())
+    }
+}
+
+export const getOrders=async(dispatch)=>{
+    dispatch(setLoadingSuccess())
+    try{
+        const q=query(collection(db,"orders"))
+        const result=await getDocs(q)
+        let orders=[]
+        if(result.docs.length>0){
+            result.docs.forEach((order)=>{
+                orders.push({...order.data(),id:order.id})
+            })
+        }
+        orders=_.sortBy(orders,'orderedAt')
+        dispatch(setOrdersSuccess(orders))
+        dispatch(setLoadingFail())
+    }
+    catch(err){
+        console.log(err)
+        dispatch(setLoadingFail())
+    }
+}
+
+export const updateOrder=async(dispatch,order,id)=>{
+    let orders=store.getState().orders.orders;
+    orders=orders.filter((orderr)=>{return orderr?.id!=id})
+    orders=[...orders,order]
+    dispatch(setLoadingSuccess())
+    try{
+        let temp={...order}
+        delete temp?.id
+        await updateDoc(doc(db,"orders",id),temp)
+        orders=_.sortBy(orders,'orderedAt')
+        dispatch(setOrdersSuccess(orders))
+        dispatch(setLoadingFail())
+        message.success("Order status updated 🔥")
+        
     }catch(err){
         console.log(err)
         dispatch(setLoadingFail())

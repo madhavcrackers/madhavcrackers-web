@@ -11,6 +11,7 @@ import { useSelector ,useDispatch} from 'react-redux';
 import { FaArrowRight } from "react-icons/fa6";
 import {FaLongArrowAltRight} from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 function Cart() {
     const dispatch=useDispatch()
@@ -30,6 +31,10 @@ function Cart() {
     }, [cart])
     return (
         <div>
+            <Helmet>
+                <title>Cart | Madhav Crackers</title>
+                <meta name="description" content="Buy Quality Crackers from sivakasi factory"/>
+            </Helmet>
             <NavBar1 />
             <NavBar2 />
             <NavBar3 />
