@@ -10,6 +10,7 @@ import { FaFilter } from "react-icons/fa";
 import { HiOutlineEye } from "react-icons/hi2";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 
 const { Sider, Content } = Layout;
 
@@ -57,6 +58,11 @@ function QuickPurchase() {
     }, [])
     return (
         <div className="w-100 h-[100vh] relative bg-white">
+            <Helmet>
+                <title>Quick Purchase| Madhav Crackers</title>
+                <meta name="description" content="Buy the sivakasi crackers online." />
+                <meta name="keywords" content="online crackers sivakasi, Madhav Crackers, Madhav Pattasu, Diwali Crackers Sivakasi"></meta>
+            </Helmet>
             <NavBar2 />
             <NavBar3 />
             <ConfigProvider

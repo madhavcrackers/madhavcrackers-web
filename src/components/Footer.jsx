@@ -26,7 +26,6 @@ function Footer() {
                         <div className="flex items-center gap-2">
                             <IoMdCall className="text-[#facc15] text-lg" />
                             <a className="text-white text-sm" href="tel:9363935429">9363935429</a>
-                            <a className="text-white text-sm" href="tel:9343565251">9343565251</a>
                         </div>
                         <div className="flex items-center gap-2">
                             <IoMdMail className="text-[#facc15] text-lg" />
@@ -38,6 +37,7 @@ function Footer() {
                         <div className="flex flex-col gap-1">
                             <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/"}>Home</Link>
                             <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/quick-purchase"}>Products</Link>
+                            <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/track-order"}>Track Order</Link>
                             <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/payment-info"}>Payment Info</Link>
                             <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/gallery"}>Gallery</Link>
                             <Link className="text-[#fff] hover:translate-x-2 duration-500" to={"/about-us"}>About Us</Link>
@@ -49,7 +49,6 @@ function Footer() {
                         <div className="flex flex-col gap-1">
                             <FaGooglePay className="text-6xl text-[#fff]"/>
                             <p className="text-[#fff] hover:translate-x-2 duration-500">9363935429</p>
-                            <p className="text-[#fff] hover:translate-x-2 duration-500">9343565251</p>
                         </div>
                     </div>
                 </div>

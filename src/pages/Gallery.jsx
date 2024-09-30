@@ -9,6 +9,8 @@ import Loader from '../components/Loader';
 import PhotoAlbum from "react-photo-album";
 import { useSelector, useDispatch } from 'react-redux';
 import { getGallery } from '../actions/UserAction'
+import { Helmet } from 'react-helmet';
+
 function Gallery() {
     const dispatch = useDispatch()
     const [messageApi, ContextHolder] = message.useMessage()
@@ -20,6 +22,10 @@ function Gallery() {
     }, [])
     return (
         <>
+            <Helmet>
+                <title>Gallery | Madhav Crackers</title>
+                <meta name="description" content="Buy Quality Crackers from sivakasi factory" />
+            </Helmet>
             {ContextHolder}
             {
                 loading ?

@@ -10,10 +10,12 @@ import PaymentInfo from './pages/PaymentInfo';
 import Gallery from './pages/Gallery';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import TrackOrder from './pages/TrackOrder';
 
 import AdminMain from './pages/Admin/AdminMain';
 
 import './index.css'
+import Error404 from './pages/Error404';
 
 
 const router=createBrowserRouter([
@@ -49,8 +51,15 @@ const router=createBrowserRouter([
     element:<Checkout/>
   },
   {
+    path:'/track-order',
+    element:<TrackOrder/>
+  },
+  {
     path:'/admin',
     element:<AdminMain/>
+  },{
+    path:'/*',
+    element:<Error404/>
   }
 ])
 

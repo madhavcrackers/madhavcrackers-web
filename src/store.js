@@ -5,6 +5,7 @@ import { thunk } from "redux-thunk";
 import InventorySlice from "./slices/InventorySlice";
 import ProductSlice from "./slices/ProductSlice";
 import OrderSlice from './slices/OrderSlice'
+import OrdersSlices from "./slices/OrdersSlices";
 import OtherSlice from './slices/OtherSlice'
 
 export default configureStore({
@@ -14,6 +15,7 @@ export default configureStore({
         "inventory":InventorySlice,
         "product":ProductSlice,
         "order":OrderSlice,
+        "orders":OrdersSlices,
         "others":OtherSlice
     },
     middleware:()=>new Tuple(thunk)

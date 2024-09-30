@@ -10,6 +10,7 @@ import { getSettings, updateCustomerInfoAndOrderId } from '../actions/UserAction
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getStates } from '../utils'
+import { Helmet } from 'react-helmet';
 
 function Checkout() {
     const [customerInfo, setCustomerInfo] = useState({ state: "", name: "", address: "", city: "", email: "", pincode: "", mobileNumber: "", whatsappNumber: "" })
@@ -22,7 +23,7 @@ function Checkout() {
     const [sameNumber, setSameNumber] = useState(false)
     const [messageApi, ContextHolder] = message.useMessage()
     const [orderConfirmed, setOrderConfirmed] = useState(false)
-    let order=JSON.parse(sessionStorage.getItem("madhav_order_details"))
+    let order = JSON.parse(sessionStorage.getItem("madhav_order_details"))
     useEffect(() => {
         if (sameNumber)
             setCustomerInfo({ ...customerInfo, whatsappNumber: customerInfo?.mobileNumber })
@@ -64,6 +65,10 @@ function Checkout() {
                 <Loader />
                 :
                 <div>
+                    <Helmet>
+                        <title>Checkout | Madhav Crackers</title>
+                        <meta name="description" content="Best crackers shop in sivakasi." />
+                    </Helmet>
                     <Modal width={800} footer={<p></p>} open={orderConfirmed} onCancel={handleClose}>
                         <Result
                             status="success"
@@ -173,8 +178,8 @@ function Checkout() {
                         </div>
                         <hr className='border-[#ccc] mt-12' />
                     </form>
-                    <Payment/>
-                    <Footer/>
+                    <Payment />
+                    <Footer />
                 </div>
         }
         </>
@@ -184,15 +189,15 @@ function Checkout() {
 const generateOrderId = () => {
     const date = new Date()
     const year = date.getFullYear()
-    const datee = formatTime(date.getMonth()+1)+formatTime(date.getDate())
-    const time = formatTime(date.getHours()+1)+formatTime(date.getMinutes()+1)+formatTime(date.getSeconds()+1)
+    const datee = formatTime(date.getMonth() + 1) + formatTime(date.getDate())
+    const time = formatTime(date.getHours() + 1) + formatTime(date.getMinutes() + 1) + formatTime(date.getSeconds() + 1)
     return (`${year}-${datee}-${time}`)
 }
 
-const formatTime=(value)=>{
-    let res=String(value)
-    if(res.length==1)
-        res="0"+res;
+const formatTime = (value) => {
+    let res = String(value)
+    if (res.length == 1)
+        res = "0" + res;
     return res;
 }
 

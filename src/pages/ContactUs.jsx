@@ -5,10 +5,15 @@ import NavBar2 from '../components/NavBar2';
 import NavBar3 from '../components/NavBar3';
 import AboutFooter from '../components/AboutFooter';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 function ContactUs() {
     const [messageApi, ContextHolder] = message.useMessage()
     return (
         <>
+            <Helmet>
+                <title>Contact Us | Madhav Crackers</title>
+                <meta name="description" content="Buy Quality Crackers from sivakasi factory"/>
+            </Helmet>
             {ContextHolder}
             <NavBar1 />
             <NavBar2 />
